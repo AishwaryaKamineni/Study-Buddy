@@ -20,6 +20,7 @@ class StudyBuddy:
         self.top_styles = []
         self.the_flashcards = []
         self.currently_showing_definition = False
+        self.current_flashcard_index = 0
         self.app_folder = os.path.dirname(os.path.abspath(__file__))
         self.is_recording = False
         self.recording_thread = None
@@ -29,7 +30,7 @@ class StudyBuddy:
         os.makedirs(self.app_folder, exist_ok=True)
         self.main = tk.Tk()
         self.main.title("StudyBuddy")
-        self.main.geometry("500x600")
+        self.main.geometry("600x600")
         self.main.configure(bg='#e3f2fd')
         self.shapes = []
         self.current_shape = None
@@ -314,7 +315,6 @@ class StudyBuddy:
         self.toggle_button = tk.Button(content_frame, text="Show Definition", command=self.toggle_flashcard, bg="#64b5f6", fg="white")
         self.toggle_button.pack()
 
-        self.current_flashcard_index = 0
         self.display_flashcard()
 
     def display_flashcard(self):
@@ -336,7 +336,7 @@ class StudyBuddy:
             self.img_label.config(image='')
 
     def toggle_flashcard(self):
-        card = self.flashcards[self.current_flashcard_index]
+        card = self.the_flashcards[self.current_flashcard_index]
         
         if 'term' in card and card['image':""]:
             if self.currently_showing_definition:
@@ -788,18 +788,18 @@ class StudyBuddy:
 
         tk.Label(menu_frame, text="Welcome to Study Buddy!", bg='#e3f2fd', font=('Helvetica', 20, 'bold')).pack(pady=10)
 
-        tk.Button(menu_frame, text="Take the Quiz", command=self.quiz, **button_style).pack(pady=10)
+        tk.Button(menu_frame, text="Take the Quiz", command=self.quiz, **button_style).pack(pady=20)
 
         tools_frame = tk.Frame(menu_frame, bg='#e3f2fd')
         tools_frame.pack(pady=10)
 
-        image = Image.open("student_img_no_bg.png")
-        image = image.resize((225, 300), Image.LANCZOS)
+        image = Image.open("student_img_no_bg2.png")
+        image = image.resize((300, 225), Image.LANCZOS)
         photo = ImageTk.PhotoImage(image)
 
         image_label = tk.Label(tools_frame, image=photo, bg='#e3f2fd')
         image_label.image = photo
-        image_label.pack(side=tk.LEFT, padx=10)
+        image_label.pack(side=tk.LEFT, padx=20)
 
         buttons_frame = tk.Frame(tools_frame, bg='#e3f2fd')
         buttons_frame.pack(side=tk.LEFT)
